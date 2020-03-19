@@ -1,24 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardBody, CardText, CardTitle } from 'reactstrap';
-import DishDetail from './DishdetailComponent';
-// import App from '../App'
 
 
-
-class Menu extends Component {
-
+class DishDetail extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            selectedDish: null
+            selectedDish: this.props.selectedDish,
+            menu: this.props.menu
         }
-    }
 
+        // this.setState({ selectedDish: this.props.selectedDish })
+    }
     onDishSelect(dish) {
         this.setState({ selectedDish: dish });
-        this.props.dishSelected({ selectedDish: dish });
-        console.log(this.selectedDish)
 
     }
 
@@ -38,8 +33,11 @@ class Menu extends Component {
                 <div></div>
             );
     }
+
     render() {
-        const menu = this.props.dishes.map((dish) => {
+
+
+        const newMenu = this.props.menu.map((dish) => {
             return (
                 <div key={dish.id} className="col-12 col-md-5 m-1">
                     <Card onClick={() => this.onDishSelect(dish)}>
@@ -50,21 +48,17 @@ class Menu extends Component {
                 </div >
             );
         });
-        // console.log(menu.dish, "menu in menu component")
+        console.log(this.props.menu, "menu", this.props.selectedDish, "selected dish")
         return (
-            <div className="container" >
-                <div className="row">
-                    {menu}
-                </div>
-                {/* <DishDetail selectedDish={this.state.selectedDish} /> */}
-                <div className="row">
-                    <DishDetail menu={menu} />
-                    {/* {this.renderDish(this.state.selectedDish)} */}
-                </div>
+            <div>
+                {newMenu}
+                {/* <h2>hello world</h2> */}
+                {this.renderDish(this.state.selectedDish)}
             </div>
-        );
-    }
+        )
 
+
+    }
 }
 
-export default Menu;
+export default DishDetail;
