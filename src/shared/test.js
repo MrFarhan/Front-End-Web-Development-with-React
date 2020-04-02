@@ -335,3 +335,18 @@
 // }
 
 // export default DishDetail;
+// import React from 'react';
+
+// var Hello = React.createClass({
+//     render: function () {
+//         var names = ['Jake', 'Jon', 'Thruster'];
+//         return (
+//             <ul>
+//                 {names.map(function (name, index) {
+//                     return <li key={index}>{name}</li>;
+//                 })}
+//             </ul>
+//         )
+//     }
+// });
+// console.log(Hello)
