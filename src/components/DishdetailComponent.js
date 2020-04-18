@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-// eslint-disable-next-line no-unused-vars
-import {Card,CardImg,Button,CardText,CardBody,CardTitle,Breadcrumb,BreadcrumbItem,Modal,ModalHeader,ModalBody,Form,FormGroup,Input,Label,Row,Col} from 'reactstrap'
-
-import { Control, LocalForm, Errors } from 'react-redux-form'
+import {Card,CardImg,Button,CardText,CardBody,CardTitle,Fade,Breadcrumb,BreadcrumbItem,Modal,ModalHeader,ModalBody,Form,FormGroup,Input,Label,Row,Col} from 'reactstrap'
+import { Control, LocalForm, Errors,Stagger } from 'react-redux-form'
 import { Link } from 'react-router-dom'
+
+
+
+
+
 function RenderDish ({ dish }) {
   if (dish != null) {
     return (
@@ -20,38 +23,74 @@ function RenderDish ({ dish }) {
   }
 }
 
-//function renderComments
-function RenderComments ({ comments }) {
-  if (comments != null) {
-    const commentss = comments.map(comment => {
-      return (
-        <div key={comment.id}>
-          <ul className='list-unstyled'>
-            <li>{comment.comment}</li>
-            <li>
-              {comment.author} ,{' '}
-              {new Intl.DateTimeFormat('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: '2-digit'
-              }).format(new Date(Date.parse(comment.date)))}
-            </li>
-          </ul>
-        </div>
-      )
-    })
-    return (
-      <div>
-        <h4 className='col-12'>Comments</h4>
-        <div>{commentss}</div>
-      </div>
-    )
-  } else {
-    return <div></div>
-  }
+// Instructor code
+function RenderComments({comments,addComment, dishId}) {
+  if (comments != null)
+      return(
+          <div className="">
+              <h4>Comments</h4>
+              <ul className="list-unstyled">
+                  <li>
+                      {comments.map((comment) => {
+                          return (
+                              <div in key={comment._id}>
+                                  <div>
+                                  <p>{comment.comment}</p>
+                                  <p>{comment.author}</p>
+                                 <p> {new Intl.DateTimeFormat('en-US', {year: 'numeric',month: 'short',day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+
+                                  </div>
+                              </div>
+                          );
+                      })}
+                  </li>
+              </ul>
+              <CommentForm dishId={dishId} addComment={addComment}/>
+          </div>
+      );
+  else
+      return(
+          <div></div>
+      );
 }
 
-// const DishDetail = ({ dish, comm }) => {
+
+
+
+
+
+// my code
+
+// function RenderComments ({ comments }) {
+//   if (comments != null) {
+//     const commentss = comments.map(comment => {
+//       return (
+//         <div key={comment.id}>
+//           <ul className='list-unstyled'>
+//             <li>{comment.comment}</li>
+//             <li>
+//               {comment.author} ,{' '}
+//               {new Intl.DateTimeFormat('en-US', {
+//                 year: 'numeric',
+//                 month: 'short',
+//                 day: '2-digit'
+//               }).format(new Date(Date.parse(comment.date)))}
+//             </li>
+//           </ul>
+//         </div>
+//       )
+//     })
+//     return (
+//       <div>
+//         <h4 className='col-12'>Comments</h4>
+//         <div>{commentss}</div>
+//       </div>
+//     )
+//   } else {
+//     return <div></div>
+//   }
+// }
+
 const DishDetail = props => {
   console.log(props, 'props in disbdetailComponent')
   return (
@@ -73,28 +112,14 @@ const DishDetail = props => {
           <RenderDish dish={props.dish} />
         </div>
         <div className='col-12 col-md-5 m-1'>
-          <RenderComments comments={props.comments} />
-          <CommentForm />
+        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
         </div>
       </div>
     </div>
-
-    // <div className="container">
-    //     <div className="row">
-    //         <div className="col-12 col-md-5 m-1" >
-    //             <RenderDish dish={dish} />
-    //             {console.log(dish, "dish on renderdish")}
-    //         </div>
-    //         <div className="col-12 col-md-5">
-    //             <RenderComments dish={dish} />
-    //             {console.log(dish, "dish on rendercomment")}
-    //         </div>
-    //     </div>
-    // </div>
   )
 }
 
-export class CommentForm extends Component {
+class CommentForm extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -110,8 +135,8 @@ export class CommentForm extends Component {
 
   handleform(values){
     this.toggleModal();
-    alert("Current status is " + JSON.stringify(values));
-
+    // alert("Current status is " + JSON.stringify(values));
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   haldleBlur = (field) => (evt) =>{
@@ -149,9 +174,6 @@ export class CommentForm extends Component {
                 </Control.select>
                 </Col>
               </Row>
-              {/* </FormGroup> */}
-
-              {/* <FormGroup> */}
                 <Row className="form-group" >
                 <Col md={12}>
                 <Label htmlFor='author'> Your Name</Label>
@@ -163,26 +185,18 @@ export class CommentForm extends Component {
               </Col>
               {console.log("errors", Errors.message)}
               </Row>
-              {/* </FormGroup> */}
 
-
-              {/* <FormGroup> */}
               <Row className="form-group">
                 <Col md={12}>
                 <Label htmlFor='comment'> Your Comment</Label>
                 <Control.textarea type='textarea' model=".textarea" id='comment' rows="6" className="form-control"/>
              </Col></Row>
-              {/* </FormGroup> */}
 
-
-
-              {/* <FormGroup> */}
               <Row className="form-group">
               <Col md={12}>
               <Button type="submit" color="primary">Submit</Button>
               </Col>
               </Row>
-              {/* </FormGroup> */}
             </LocalForm>
           </ModalBody>
         </Modal>
