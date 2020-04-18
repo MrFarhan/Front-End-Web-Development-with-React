@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Navbar, NavbarBrand } from 'reactstrap';
 import Home from './HomeComponent';
 import Menu from './menuComponent';
 import Contact from './ContactComponent';
@@ -10,8 +9,6 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import {connect} from 'react-redux';
 import { About } from './AboutComponent';
 import {addComment} from '../redux/ActionCreators';
-
-// import RenderLeader from './AboutComponent';
 
 const mapStateToProps = state =>{
     return {
@@ -29,17 +26,6 @@ const mapDispatchToProps = (dispatch) =>({
 
 class Main extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            
-            // selectedDish: null
-        };
-    }
-
-    // onDishSelect(dishId) {
-    //     this.setState({ selectedDish: dishId });
-    // }
 
 
     render() {
@@ -62,27 +48,18 @@ class Main extends Component {
         return (
             <div>
                 <Header />
-                {/* <Navbar dark color="primary">
-                    <div className="container">
-                        <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
-                    </div>
-                </Navbar> */}
+        
                 <Switch>
                     <Route path="/home" component={HomePage} />
                     <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
                     <Route path='/menu/:dishId' component={DishWithId} />
                     <Route exact path='/contactus' component={Contact} />} />
                     <Route exact path='/aboutus' component={() => <About leaders={this.props.leaders} />} />
-                    {/* <Route path='/aboutus' component={() =>  */}
-
-                    {/* <RenderLeader leaders={this.state.leaders} /> */}
                     <Redirect to="/home" />
                 </Switch>
 
 
-                {/* <Menu dishes={this.state.dishes} onClick={(dishId) => this.onDishSelect(dishId)} />
-                <DishDetail dish={this.state.dishes.filter((dish) => dish.id === this.state.selectedDish)[0]} /> */}
-                <Footer />
+          <Footer />
             </div>
         );
     }

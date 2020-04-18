@@ -30,14 +30,7 @@ export function RenderLeader(props) {
 }
 
 export function About(props) {
-
-    // const leaders = props.leaders.map((leader) => {
-    //     return (
-    //         <p>Leader {leader.name}</p>
-    //     );
-    // });
-
-    return (
+   return (
         <div className="container">
             <div className="row">
                 <Breadcrumb>
@@ -93,7 +86,6 @@ export function About(props) {
                 </div>
                 <div className="col-12">
                     <RenderLeader {...props} />
-                    {/* {leaders} */}
                 </div>
             </div>
         </div>

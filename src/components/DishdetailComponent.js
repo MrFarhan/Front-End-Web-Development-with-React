@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {Card,CardImg,Button,CardText,CardBody,CardTitle,Fade,Breadcrumb,BreadcrumbItem,Modal,ModalHeader,ModalBody,Form,FormGroup,Input,Label,Row,Col} from 'reactstrap'
-import { Control, LocalForm, Errors,Stagger } from 'react-redux-form'
+import {Card,CardImg,Button,CardText,CardBody,CardTitle,Breadcrumb,BreadcrumbItem,Modal,ModalHeader,ModalBody,Label,Row,Col} from 'reactstrap'
+import { Control, LocalForm, Errors } from 'react-redux-form'
 import { Link } from 'react-router-dom'
 
 
@@ -23,7 +23,6 @@ function RenderDish ({ dish }) {
   }
 }
 
-// Instructor code
 function RenderComments({comments,addComment, dishId}) {
   if (comments != null)
       return(
@@ -55,41 +54,6 @@ function RenderComments({comments,addComment, dishId}) {
 }
 
 
-
-
-
-
-// my code
-
-// function RenderComments ({ comments }) {
-//   if (comments != null) {
-//     const commentss = comments.map(comment => {
-//       return (
-//         <div key={comment.id}>
-//           <ul className='list-unstyled'>
-//             <li>{comment.comment}</li>
-//             <li>
-//               {comment.author} ,{' '}
-//               {new Intl.DateTimeFormat('en-US', {
-//                 year: 'numeric',
-//                 month: 'short',
-//                 day: '2-digit'
-//               }).format(new Date(Date.parse(comment.date)))}
-//             </li>
-//           </ul>
-//         </div>
-//       )
-//     })
-//     return (
-//       <div>
-//         <h4 className='col-12'>Comments</h4>
-//         <div>{commentss}</div>
-//       </div>
-//     )
-//   } else {
-//     return <div></div>
-//   }
-// }
 
 const DishDetail = props => {
   console.log(props, 'props in disbdetailComponent')
@@ -135,7 +99,6 @@ class CommentForm extends Component {
 
   handleform(values){
     this.toggleModal();
-    // alert("Current status is " + JSON.stringify(values));
     this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
