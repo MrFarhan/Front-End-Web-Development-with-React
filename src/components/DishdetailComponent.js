@@ -56,7 +56,7 @@ function RenderComments({comments,addComment, dishId}) {
 
 
 const DishDetail = props => {
-  console.log(props, 'props in disbdetailComponent')
+  console.log(props, 'props in dishdetailComponent')
   return (
     <div className='container'>
       <div className='row'>
